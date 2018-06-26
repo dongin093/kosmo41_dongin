@@ -1,0 +1,15 @@
+class Calc {
+	int add (int a, int b)
+	{
+		return a+b;
+	}
+}
+public class MathEx {
+
+	public static void main(String[] args) {
+		Calc s = new Calc();
+		int nRtn = s.add(3, 9);
+		System.out.println("3 + 9 = " + nRtn);
+	}
+
+}
