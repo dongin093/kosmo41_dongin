@@ -11,9 +11,9 @@ public class Quiz_BaseballGame {
 		int com2 = 0;
 		int com3 = 0;
 		for(;;) {
-			com1 = rnd.nextInt(9)+1;
-			com2 = rnd.nextInt(10);
-			com3 = rnd.nextInt(10);
+			com1 = rnd.nextInt(8)+1;
+			com2 = rnd.nextInt(8)+1;
+			com3 = rnd.nextInt(8)+1;
 			if(com1!=com2&&com1!=com3&&com2!=com3) {
 				arr[0] = com1;
 				arr[1] = com2;
