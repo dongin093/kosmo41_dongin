@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>05-08 : onbeforeprint와 onafterprint</title>
+<style>
+#logoDiv {
+	display : none;
+	position : absolute; left :0;top:0;
+	width :100%;height:100%;
+}
+</style>
+<script>
+window.onbeforeprint=function(e) {
+	logoDiv = document.getElementById("logoDiv");
+	logoDiv.style.display = "block";
+}
+window.onafterprint=hideLogo;
+function hideLogo() {
+	logoDiv = document.getElementById("logoDiv");
+	logoDiv.style.display ="none";
+	logoDiv.style.zIndex=-1;
+}
+</script>
+</head>
+<body>
+<h3>onbeforeprint,onafterprint 이벤트 예</h3>
+<hr>
+<div id="logoDiv">
+	<img src="media/logo.png" alt="이미지 없습니다.">
+</div>
+
+</body>
+</html>
