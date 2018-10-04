@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void requestMyLocation() {
         LocationManager manager =
                 (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
     private  void showCurrentLocation(Location location){
         LatLng curPoint = new LatLng(location.getLatitude(),location.getLongitude());
 
