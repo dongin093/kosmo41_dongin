@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "168202661060",
+    "firebase_url": "https://admob-test-65fa7.firebaseio.com",
+    "project_id": "admob-test-65fa7",
+    "storage_bucket": "admob-test-65fa7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168202661060:android:5730c9c83498f407",
+        "android_client_info": {
+          "package_name": "com.study.android.admobex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168202661060-urb60f54dirj7cs2i7n3ti3opnbe84sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCKdSnWw4GlI--7UCx3AL8I89o24YXhbk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
