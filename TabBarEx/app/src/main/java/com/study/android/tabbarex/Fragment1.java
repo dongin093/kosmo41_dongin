@@ -1,10 +1,13 @@
-package com.study.android.android_project;
+package com.study.android.tabbarex;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.os.StrictMode;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,16 +15,22 @@ import android.widget.Toast;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class MainActivity extends Activity {
+
+public class Fragment1 extends Fragment {
+    private static final String TAG = "lecture";
+
+    private Context context;
 
     EditText edit1;
     EditText edit2;
     TextView status1;
 
-    XmlPullParser xpp;
     String key="jaYEdfXvyWldUslfq8Gy" +
             "102uMd6QitFvayicDdZbsAKUoI%2FkrdS%2B%2FlH3LI35BNE6lMOvZk8dCXwxfCypPU7Jmw%3D%3D";
 
@@ -42,27 +51,35 @@ public class MainActivity extends Activity {
             dutyTime5s = null, dutyTime6s = null, dutyTime7s = null, dutyTime8s = null;
     String hpid = null, postCdn1 = null, postCdn2 = null , wgs84Lon = null , wgs84Lat = null;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        StrictMode.enableDefaults();
+        context = container.getContext();
 
-        edit1= (EditText)findViewById(R.id.edit1);
-        edit2= (EditText)findViewById(R.id.edit2);
-        status1= (TextView)findViewById(R.id.result);
+        ViewGroup rootView =
+                (ViewGroup) inflater.inflate(R.layout.fragment_fragment1,container,false);
+
+        edit1 = rootView.findViewById(R.id.edit1);
+        edit2 = rootView.findViewById(R.id.edit2);
+        status1 = rootView.findViewById(R.id.result);
+
+
+
+
+        Button button = rootView.findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getXmlData();
+            }
+        });
+        return rootView;
     }
-
-    //Button을 클릭했을 때 자동으로 호출되는 callback method....
-    public void mOnClick(View v){
-        getXmlData();//아래 메소드를 호출하여 XML data를 파싱해서 String 객체로 얻어오기
-    }//mOnClick method..
 
     //검색명 입력하면 입력된 검색데이터 송출
     public void getXmlData(){
-
-        StringBuffer buffer=new StringBuffer();
 
         String str1= edit1.getText().toString();//EditText에 작성된 Text얻어오기
         String str2= edit2.getText().toString();
@@ -74,13 +91,19 @@ public class MainActivity extends Activity {
                     key + "&Q0=" + location1 + "&Q1=" + location2 +
                     "&QN=%EC%82%BC%EC%84%B1%EC%95%BD%EA%B5%AD&ORD=NAME&pageNo=1&startPage=1&numOfRows=10&pageSize=10");
 
+            Toast.makeText(context,"location1 : " + location1,Toast.LENGTH_SHORT).show();
+
             XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserCreator.newPullParser();
+            Toast.makeText(context,"location2 : " + location2,Toast.LENGTH_SHORT).show();
 
+            // 여기서 왜 죽냐
             parser.setInput(url.openStream(), null);
 
             int parserEvent = parser.getEventType();
-            System.out.println("파싱시작합니다.");
+//            System.out.println("파싱시작합니다.");
+
+            Toast.makeText(context,"KEY : " + key,Toast.LENGTH_SHORT).show();
 
             while (parserEvent != XmlPullParser.END_DOCUMENT){
                 switch(parserEvent){
@@ -148,15 +171,6 @@ public class MainActivity extends Activity {
                         if(parser.getName().equals("dutyTime8s")){ //mapy 만나면 내용을 받을수 있게 하자
                             indutyTime8s = true;
                         }
-//                        if(parser.getName().equals("hpid")){ //mapy 만나면 내용을 받을수 있게 하자
-//                            inhpid = true;
-//                        }
-//                        if(parser.getName().equals("postCdn1")){ //mapy 만나면 내용을 받을수 있게 하자
-//                            inpostCdn1 = true;
-//                        }
-//                        if(parser.getName().equals("postCdn2")){ //mapy 만나면 내용을 받을수 있게 하자
-//                            inpostCdn2 = true;
-//                        }
                         if(parser.getName().equals("wgs84Lon")){ //mapy 만나면 내용을 받을수 있게 하자
                             inwgs84Lon = true;
                         }
@@ -254,18 +268,6 @@ public class MainActivity extends Activity {
                             dutyTime8s = parser.getText();
                             indutyTime8s = false;
                         }
-//                        if(inhpid){ //isMapy이 true일 때 태그의 내용을 저장.
-//                            hpid = parser.getText();
-//                            inhpid = false;
-//                        }
-//                        if(inpostCdn1){ //isMapy이 true일 때 태그의 내용을 저장.
-//                            postCdn1 = parser.getText();
-//                            inpostCdn1 = false;
-//                        }
-//                        if(inpostCdn2){ //isMapy이 true일 때 태그의 내용을 저장.
-//                            postCdn2 = parser.getText();
-//                            inpostCdn2 = false;
-//                        }
                         if(inwgs84Lon){ //isMapy이 true일 때 태그의 내용을 저장.
                             wgs84Lon = parser.getText();
                             inwgs84Lon = false;
@@ -291,10 +293,8 @@ public class MainActivity extends Activity {
                 }
                 parserEvent = parser.next();
             }
-
         } catch(Exception e){
             status1.setText("에러가..났습니다...");
         }
     }
-
-}//MainActivity class..
+}

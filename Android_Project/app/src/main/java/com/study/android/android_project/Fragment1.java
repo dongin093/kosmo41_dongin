@@ -1,13 +1,14 @@
 package com.study.android.android_project;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -15,8 +16,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class MainActivity extends Activity {
 
+public class Fragment1 extends Fragment {
     EditText edit1;
     EditText edit2;
     TextView status1;
@@ -43,15 +44,16 @@ public class MainActivity extends Activity {
     String hpid = null, postCdn1 = null, postCdn2 = null , wgs84Lon = null , wgs84Lat = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        ViewGroup rootView =
+                (ViewGroup) inflater.inflate(R.layout.fragment_fragment1,container,false);
+        edit1 = rootView.findViewById(R.id.edit1);
+        edit2 = rootView.findViewById(R.id.edit2);
+        status1 = rootView.findViewById(R.id.result);
 
         StrictMode.enableDefaults();
-
-        edit1= (EditText)findViewById(R.id.edit1);
-        edit2= (EditText)findViewById(R.id.edit2);
-        status1= (TextView)findViewById(R.id.result);
+        return rootView;
     }
 
     //Button을 클릭했을 때 자동으로 호출되는 callback method....
@@ -298,3 +300,4 @@ public class MainActivity extends Activity {
     }
 
 }//MainActivity class..
+
