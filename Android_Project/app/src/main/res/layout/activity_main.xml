@@ -14,11 +14,11 @@
         android:orientation="horizontal"
         android:weightSum="10">
 
-        <EditText
-            android:id="@+id/edit1"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:hint="oo도/시" />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <EditText
             android:id="@+id/edit2"
@@ -26,29 +26,31 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="oo군/구"
+            android:hint="시,군,구"
             android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:onClick="mOnClick"
             android:text="search"
-            android:textSize="12sp"
-            android:onClick="mOnClick"/>
+            android:textSize="12sp" />
 
     </LinearLayout>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="8sp"
-            android:textStyle="bold"/>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:onClick="Btn1Clicked"
+        android:text="더보기+" />
 
-    </ScrollView>
 </LinearLayout>

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     // 2단계
        final MyAdapter adapter = new MyAdapter();
-       listView1.setAdapter(adapter);
+        listView1.setAdapter(adapter);
 
        // 4단계
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {

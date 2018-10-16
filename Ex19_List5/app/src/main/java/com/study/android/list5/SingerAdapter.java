@@ -31,13 +31,13 @@ public class SingerAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View converView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 //        SingerItemView view = new SingerItemView(getApplicationContext());
         SingerItemView view = null;
-        if(converView == null) {
+        if(convertView == null) {
             view = new SingerItemView(context);
         }else {
-            view = (SingerItemView) converView;
+            view = (SingerItemView) convertView;
         }
 
         SingerItem item = items.get(position);

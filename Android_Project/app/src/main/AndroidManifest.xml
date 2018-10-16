@@ -3,6 +3,14 @@
     package="com.study.android.android_project">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <permission
+        android:name="com.study.android.android_project.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.study.android.android_project.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -19,15 +27,18 @@
             </intent-filter>
         </activity>
 
-        <uses-library android:name="com.google.android.maps" />
+        <activity android:name=".Main2Activity"></activity>
 
+        <activity android:name=".Main3Activity"/>
+
+        <uses-library android:name="com.google.android.maps" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCkrVezxDYWs29flkd49MZ80usnSBAdNpY" />
+            android:value="AIzaSyApSftmQLMV6GxoV4oUMcoh_sJ02y7itmU" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

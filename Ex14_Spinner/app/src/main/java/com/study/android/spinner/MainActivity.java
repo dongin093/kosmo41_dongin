@@ -41,6 +41,5 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText("");
             }
         });
-        )
     }
 }

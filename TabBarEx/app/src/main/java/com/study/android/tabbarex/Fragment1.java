@@ -1,6 +1,8 @@
 package com.study.android.tabbarex;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,17 +26,21 @@ import java.net.URLEncoder;
 
 public class Fragment1 extends Fragment {
     private static final String TAG = "lecture";
-
     private Context context;
-
     EditText edit1;
     EditText edit2;
     TextView status1;
 
+    String data;
+
+    String pass1;
+    String pass2;
+
+    LayoutInflater inflater;
+    ViewGroup container;
+
     String key="jaYEdfXvyWldUslfq8Gy" +
             "102uMd6QitFvayicDdZbsAKUoI%2FkrdS%2B%2FlH3LI35BNE6lMOvZk8dCXwxfCypPU7Jmw%3D%3D";
-
-    String data;
 
     boolean initem = false, indutyAddr = false, indutyEtc = false, indutyMapimg = false, indutyName = false;
     boolean indutyTel1 = false;
@@ -56,56 +62,69 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        context = container.getContext();
-
-        ViewGroup rootView =
+             final ViewGroup rootView =
                 (ViewGroup) inflater.inflate(R.layout.fragment_fragment1,container,false);
 
         edit1 = rootView.findViewById(R.id.edit1);
         edit2 = rootView.findViewById(R.id.edit2);
-        status1 = rootView.findViewById(R.id.result);
 
+        pass1 = edit1.getText().toString();
+        pass2 = edit2.getText().toString();
 
-
+        context = container.getContext();
 
         Button button = rootView.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getXmlData();
+
+                edit1 = rootView.findViewById(R.id.edit1);
+                edit2 = rootView.findViewById(R.id.edit2);
+
+                pass1 = edit1.getText().toString();
+                pass2 = edit2.getText().toString();
+
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("pass1" , pass1);
+                intent.putExtra("pass2" , pass2);
+                getXmlData(edit1,edit2);
+//                ((MainActivity)getActivity()).getXmlData(pass1,pass2);
+//                ((MainActivity)getActivity()).getString(intent);
             }
         });
         return rootView;
     }
 
     //검색명 입력하면 입력된 검색데이터 송출
-    public void getXmlData(){
+    public void getXmlData(EditText edit1,EditText edit2){
+        Log.d(TAG,"1111111111111");
+//        StringBuffer buffer=new StringBuffer();
+
 
         String str1= edit1.getText().toString();//EditText에 작성된 Text얻어오기
         String str2= edit2.getText().toString();
+        Log.d(TAG,str1+" + "+str2);
         String location1 = URLEncoder.encode(str1);//한글의 경우 인식이 안되기에 utf-8 방식으로 encoding..
         String location2 = URLEncoder.encode(str2);
+        Log.d(TAG,"2222222222222");
 
         try {
+            Log.d(TAG,location1+" + "+location2);
             URL url=new URL("http://apis.data.go.kr/B552657/ErmctInsttInfoInqireService/getParmacyListInfoInqire?serviceKey=" +
                     key + "&Q0=" + location1 + "&Q1=" + location2 +
                     "&QN=%EC%82%BC%EC%84%B1%EC%95%BD%EA%B5%AD&ORD=NAME&pageNo=1&startPage=1&numOfRows=10&pageSize=10");
-
-            Toast.makeText(context,"location1 : " + location1,Toast.LENGTH_SHORT).show();
-
+            Log.d(TAG,"1111111111111");
             XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
             XmlPullParser parser = parserCreator.newPullParser();
-            Toast.makeText(context,"location2 : " + location2,Toast.LENGTH_SHORT).show();
-
-            // 여기서 왜 죽냐
+            Log.d(TAG,"2222222222222");
             parser.setInput(url.openStream(), null);
-
+            Log.d(TAG,"333333333333");
             int parserEvent = parser.getEventType();
-//            System.out.println("파싱시작합니다.");
-
-            Toast.makeText(context,"KEY : " + key,Toast.LENGTH_SHORT).show();
+            System.out.println("파싱시작합니다.");
+            Log.d(TAG,"444444444444");
 
             while (parserEvent != XmlPullParser.END_DOCUMENT){
+                Log.d(TAG,"55555555");
                 switch(parserEvent){
                     case XmlPullParser.START_TAG://parser가 시작 태그를 만나면 실행
                         if(parser.getName().equals("dutyAddr")){ //title 만나면 내용을 받을수 있게 하자
@@ -293,8 +312,11 @@ public class Fragment1 extends Fragment {
                 }
                 parserEvent = parser.next();
             }
+
         } catch(Exception e){
             status1.setText("에러가..났습니다...");
         }
     }
+
+
 }
